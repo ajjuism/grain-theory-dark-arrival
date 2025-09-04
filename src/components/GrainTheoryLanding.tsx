@@ -37,22 +37,21 @@ const GrainTheoryLanding = () => {
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
-        <header className="p-6 md:p-8">
+        <header className="p-4 md:p-6">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="flex items-center gap-3">
-              <Camera className="w-8 h-8 text-primary" />
-              <span className="text-xl font-semibold">Grain Theory</span>
+            <div className="flex items-center">
+              <img src="/logo.svg" alt="Grain Theory" className="h-8" />
             </div>
             <nav className="hidden md:flex gap-8 text-sm text-muted-foreground">
               <span>Photography</span>
               <span>Videography</span>
-              <span>Production</span>
+              <span>Post-Production</span>
             </nav>
           </div>
         </header>
 
         {/* Hero Section */}
-        <main className="flex-1 flex items-center justify-center px-6 md:px-8">
+        <main className="flex-1 flex items-center justify-center px-6 md:px-8 -mt-32 pb-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-6xl md:text-8xl font-bold mb-6 hero-title fade-in-up">
               GRAIN
@@ -68,7 +67,7 @@ const GrainTheoryLanding = () => {
               A production house crafting cinematic experiences.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 fade-in-up-delay-2">
+            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 fade-in-up-delay-2">
               <div className="flex items-center gap-2 text-primary">
                 <Camera className="w-5 h-5" />
                 <span>Photography</span>
@@ -83,7 +82,7 @@ const GrainTheoryLanding = () => {
                 </div>
                 <span>Production</span>
               </div>
-            </div>
+            </div> */}
 
             {/* Email Signup */}
             <div className="max-w-md mx-auto fade-in-up-delay-2">
@@ -109,14 +108,14 @@ const GrainTheoryLanding = () => {
         </main>
 
         {/* Footer */}
-        <footer className="p-6 md:p-8">
+        <footer className="p-4 md:p-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-center md:text-left">
               <p className="text-sm text-muted-foreground mb-2">
                 Coming Soon 2024
               </p>
               <p className="text-xs text-muted-foreground">
-                hello@graintheory.com • +1 (555) 123-4567
+                mail@graintheoryfilms.com • +91 90360 43152
               </p>
             </div>
             
