@@ -9,6 +9,7 @@ import CountdownTimer from "./CountdownTimer";
 const GrainTheoryLanding = () => {
   // Force component refresh - countdown timer implementation
   const [email, setEmail] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { toast } = useToast();
 
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -36,22 +37,30 @@ const GrainTheoryLanding = () => {
       
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-        <header className="p-4 md:p-6">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="flex items-center">
-              <img src="/logo.svg" alt="Grain Theory" className="h-8" />
+        {/* Floating Header */}
+        <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-6xl px-4 md:px-6">
+          <div className="bg-secondary/20 border border-border rounded-lg backdrop-blur-sm">
+            <div className="flex justify-between items-center px-6 py-4">
+              {/* Logo */}
+              <div className="flex items-center">
+                <img src="/logo.svg" alt="Grain Theory" className="h-5 md:h-6" />
+              </div>
+              
+              {/* Contact Link */}
+              <a 
+                href="mailto:hello@graintheory.com"
+                className="relative flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-300 px-4 py-2 rounded-lg hover:bg-primary/10 group"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Contact</span>
+                <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-3/4"></span>
+              </a>
             </div>
-            <nav className="hidden md:flex gap-8 text-sm text-muted-foreground">
-              <span>Photography</span>
-              <span>Videography</span>
-              <span>Post-Production</span>
-            </nav>
           </div>
         </header>
 
         {/* Hero Section */}
-        <main className="flex-1 flex items-center justify-center px-6 md:px-8 -mt-32 pb-8">
+        <main className="flex-1 flex items-center justify-center px-6 md:px-8 pt-20 -mt-32 pb-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-6xl md:text-8xl font-bold mb-6 hero-title fade-in-up">
               GRAIN
