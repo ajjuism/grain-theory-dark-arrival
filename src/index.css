@@ -208,6 +208,48 @@
     box-shadow: var(--shadow-glow);
     transform: translateY(-1px);
   }
+
+  /* Film strip animation */
+  .film-strip {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .film-strip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg, 
+      transparent 0%, 
+      hsl(var(--primary) / 0.1) 50%, 
+      transparent 100%
+    );
+    animation: filmSweep 3s ease-in-out infinite;
+  }
+
+  /* Showcase grid animations */
+  .showcase-item {
+    transition: var(--transition-cinematic);
+    overflow: hidden;
+  }
+
+  .showcase-item:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-cinematic);
+  }
+
+  .showcase-item img {
+    transition: var(--transition-cinematic);
+  }
+
+  .showcase-item:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.1) contrast(1.1);
+  }
 }
 
 @keyframes fadeInUp {
@@ -225,4 +267,9 @@
 @keyframes gradientShift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+@keyframes filmSweep {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Camera, Film, Mail, Instagram, Twitter, Linkedin } from "lucide-react";
+import { Camera, Film, Mail, Instagram, Twitter, Linkedin, Play } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/hero-bg.jpg";
+import showcase1 from "@/assets/showcase-1.jpg";
+import showcase2 from "@/assets/showcase-2.jpg";
+import showcase3 from "@/assets/showcase-3.jpg";
 
 const GrainTheoryLanding = () => {
   const [email, setEmail] = useState("");
@@ -78,6 +81,46 @@ const GrainTheoryLanding = () => {
                 </div>
                 <span>Production</span>
               </div>
+            </div>
+
+            {/* Visual Showcase */}
+            <div className="max-w-5xl mx-auto mb-12 fade-in-up-delay-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="showcase-item rounded-lg overflow-hidden film-strip">
+                  <img 
+                    src={showcase1} 
+                    alt="Professional portrait photography" 
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <Play className="w-12 h-12 text-primary" />
+                  </div>
+                </div>
+                <div className="showcase-item rounded-lg overflow-hidden film-strip">
+                  <img 
+                    src={showcase2} 
+                    alt="Cinematic wedding videography" 
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <Film className="w-12 h-12 text-primary" />
+                  </div>
+                </div>
+                <div className="showcase-item rounded-lg overflow-hidden film-strip">
+                  <img 
+                    src={showcase3} 
+                    alt="Commercial production photography" 
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                    <Camera className="w-12 h-12 text-primary" />
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-sm text-muted-foreground text-center">
+                Capturing moments that matter • Creating stories that last
+              </p>
             </div>
 
             {/* Email Signup */}
