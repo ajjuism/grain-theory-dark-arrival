@@ -7,6 +7,7 @@ import heroImage from "@/assets/hero-bg.jpg";
 import CountdownTimer from "./CountdownTimer";
 
 const GrainTheoryLanding = () => {
+  // Force component refresh - countdown timer implementation
   const [email, setEmail] = useState("");
   const { toast } = useToast();
 
