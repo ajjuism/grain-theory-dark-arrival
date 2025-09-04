@@ -16,7 +16,8 @@ const CountdownTimer = () => {
   });
 
   useEffect(() => {
-    const targetDate = new Date("2024-10-31T23:59:59").getTime();
+    // Set target date to end of October 2025 instead of 2024
+    const targetDate = new Date("2025-10-31T23:59:59").getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -48,7 +49,7 @@ const CountdownTimer = () => {
   ];
 
   return (
-    <div className="flex justify-center gap-4 md:gap-8 mb-8 fade-in-up-delay">
+    <div className="flex justify-center gap-4 md:gap-8 mb-6 fade-in-up-delay">{" "}
       {timeUnits.map((unit, index) => (
         <div key={unit.label} className="text-center">
           <div className="bg-secondary/20 border border-border rounded-lg p-3 md:p-4 mb-2 min-w-[60px] md:min-w-[80px]">
