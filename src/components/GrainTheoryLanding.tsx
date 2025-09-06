@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Camera, Film, Mail, Instagram, Twitter, Linkedin } from "lucide-react";
+import { Camera, Film, Mail, Instagram, Twitter, Linkedin, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/hero-bg.jpg";
 import CountdownTimer from "./CountdownTimer";
@@ -10,16 +10,60 @@ const GrainTheoryLanding = () => {
   // Force component refresh - countdown timer implementation
   const [email, setEmail] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  // Google Apps Script URL - Replace with your actual script URL
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwm04X9hUlmX-DjovgCjhEJNvkF-e-nCf48M8u404dxGgt8ecUKoxO4QR1OKxiUiXk/exec";
+  
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    
+    if (!email || isSubmitting) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Use FormData approach directly to avoid CORS issues
+      const formData = new FormData();
+      formData.append('email', email.trim());
+      formData.append('ipAddress', await getClientIP());
+      formData.append('userAgent', navigator.userAgent);
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData,
+      });
+
+      // If no error is thrown, assume success
       toast({
         title: "Thank you!",
         description: "We'll notify you when we launch.",
       });
       setEmail("");
+      
+    } catch (error) {
+      console.error('Error submitting email:', error);
+      toast({
+        title: "Error",
+        description: "Failed to submit email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Function to get client IP (fallback method)
+  const getClientIP = async (): Promise<string> => {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip;
+    } catch {
+      return 'Unknown';
     }
   };
 
@@ -42,13 +86,13 @@ const GrainTheoryLanding = () => {
           <div className="bg-secondary/20 border border-border rounded-lg backdrop-blur-sm">
             <div className="flex justify-between items-center px-6 py-4">
               {/* Logo */}
-              <div className="flex items-center">
-                <img src="/logo.svg" alt="Grain Theory" className="h-5 md:h-6" />
+              <div className="flex items-center group">
+                <img src="/logo.svg" alt="Grain Theory" className="h-5 md:h-6 transition-colors duration-300 group-hover:text-primary" />
               </div>
               
               {/* Contact Link */}
               <a 
-                href="mailto:hello@graintheory.com"
+                href="mailto:mail@graintheoryfilms.com"
                 className="relative flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-300 px-4 py-2 rounded-lg hover:bg-primary/10 group"
               >
                 <Mail className="w-4 h-4" />
@@ -71,7 +115,7 @@ const GrainTheoryLanding = () => {
             {/* Countdown Timer */}
             <CountdownTimer />
             
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto fade-in-up-delay">
+            <p className="text-lg md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto fade-in-up-delay">
               Where visual storytelling meets technical excellence. 
               A production house crafting cinematic experiences.
             </p>
@@ -104,13 +148,21 @@ const GrainTheoryLanding = () => {
                   className="bg-secondary/50 border-border text-foreground placeholder:text-muted-foreground"
                   required
                 />
-                <Button type="submit" className="btn-accent px-6">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Notify Me
+                <Button 
+                  type="submit" 
+                  className="btn-accent px-6" 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  ) : (
+                    <Mail className="w-4 h-4 mr-2" />
+                  )}
+                  {isSubmitting ? "Submitting..." : "Notify Me"}
                 </Button>
               </form>
               <p className="text-sm text-muted-foreground">
-                Be the first to know when we launch
+                Be the first to know when the new website launches
               </p>
             </div>
           </div>
@@ -121,7 +173,7 @@ const GrainTheoryLanding = () => {
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-center md:text-left">
               <p className="text-sm text-muted-foreground mb-2">
-                Coming Soon 2024
+                Coming Soon 2025
               </p>
               <p className="text-xs text-muted-foreground">
                 mail@graintheoryfilms.com • +91 90360 43152
@@ -129,14 +181,35 @@ const GrainTheoryLanding = () => {
             </div>
             
             <div className="flex gap-4">
-              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
-                <Instagram className="w-4 h-4" />
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                asChild
+              >
+                <a href="https://www.instagram.com/graintheoryfilms" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
-                <Twitter className="w-4 h-4" />
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                asChild
+              >
+                <a href="https://x.com/Grain_theory" target="_blank" rel="noopener noreferrer">
+                  <Twitter className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="sm" variant="ghost" className="text-muted-foreground hover:text-primary">
-                <Linkedin className="w-4 h-4" />
+              <Button 
+                size="sm" 
+                variant="ghost" 
+                className="text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"
+                asChild
+              >
+                <a href="https://www.linkedin.com/company/grain-theory-films" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="w-4 h-4" />
+                </a>
               </Button>
             </div>
           </div>
